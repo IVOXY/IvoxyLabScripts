@@ -1,28 +1,38 @@
-﻿# Global Config Section
-$nsxip = "nsxmgr.lab.ivoxy.com"
-$nsxuser = "admin"
-$nsxpassword = "******"
-$vcenterip = "dc1vc1.lab.ivoxy.com"
-$vcenteruser = "svc_labapi@lab.ivoxy.com"
-$vcenterpassword = "Simple plate camel1"
-$dvswitch = "dSwitch0"
-$cluster = "lab"
-$datastore = "tintri1"
+﻿
+
+#Temp path definitions
+$paramlab = "c:\git\ivoxylabscripts\lab.json"
+$paramglobal = "c:\git\ivoxylabscripts\global.json"
+#param([string[]]$paramlab,[string[]]$paramglobal)
+try {
+    $lab = get-content -raw -path $paramlab |convertfrom-json
+}
+catch {throw "I don't have a valid lab definition"}
+try {
+    $global = get-content -raw -path $paramglobal |convertfrom-json
+}
+catch {throw "I don't have a valid global definition"}
+
+# Global Config Section
+
+$dvswitch = $global.vcenter.dvswitch
+$cluster = $global.vcenter.cluster
+$datastore = $global.vcenter.datastore
 
 
 #Lab Configuration
-$labid = "lt001"
-$prefix = "hovs1"
-$students = @("chrisc","gregn")
-$labip = "192.168.2.1"
-$labdefaulthost = "192.168.2.10"
-$labstartip = 101
+$labid = $lab.labid
+$prefix = $lab.prefix
+$students = $lab.students
+$labip = $lab.labip
+$labdefaulthost = $lab.labdefaulthost
+$labstartip = $lab.labstartip
 
 
 
 # Connect to required resources
-connect-viserver -server $vcenterip -user $vcenteruser -Password $vcenterpassword
-Connect-NsxServer -server $nsxip -user $nsxuser -Password $nsxpassword
+connect-viserver -server $global.vcenter.ip -user $global.vcenter.user -Password $global.vcenter.password
+Connect-NsxServer -server $global.nsx.ip -user $global.nsx.user -Password $global.nsx.password
 
 
 #Create folder
@@ -51,7 +61,8 @@ foreach ($student in $students) {
         # This really needs to be fixed. Sleep timers are not the way to do this
         $VMName = "$prefix-$labid-$student-" + $_.name
         new-vm -Name $VMName -VM $_ -ResourcePool (get-resourcepool -location $cluster) -Location "$prefix-$labid" -datastore $datastore -RunAsync:$false
-        start-sleep -Seconds 600
+        #start-sleep -Seconds 900
+        start-sleep -seconds 10
         get-vm -name $VMName | get-networkadapter | set-networkadapter -networkname (get-vdportgroup "*$LSName*") -confirm:$false -runasync:$false
         start-sleep -seconds 10
         get-vm -name $VMName | Start-VM

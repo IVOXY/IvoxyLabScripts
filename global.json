@@ -1,6 +1,6 @@
 {
   "nsx": {
-    "ip": "nsxmgr.lab",
+    "ip": "nsxmgr.lab.ivoxy.com",
     "user": "admin",
     "password": "Go#Sand!"
   },
@@ -9,7 +9,7 @@
     "user": "svc_labapi@lab.ivoxy.com",
     "password": "Simple plate camel1",
     "dvswitch": "dSwitch0",
-    "$cluster": "lab",
-    "$datastore": "tintri2"
+    "cluster": "lab",
+    "datastore": "tintri2"
   }
 }

@@ -1,7 +1,7 @@
 ﻿# Global Config Section
 $nsxip = "nsxmgr.lab.ivoxy.com"
 $nsxuser = "admin"
-$nsxpassword = "******"
+$nsxpassword = "Go#Sand!"
 $vcenterip = "dc1vc1.lab.ivoxy.com"
 $vcenteruser = "svc_labapi@lab.ivoxy.com"
 $vcenterpassword = "Simple plate camel1"
@@ -18,11 +18,39 @@ $labip = "192.168.2.1"
 $labdefaulthost = "192.168.2.10"
 $labstartip = 101
 
+#Temp path definitions
+$paramlab = "c:\git\ivoxylabscripts\lab.json"
+$paramglobal = "c:\git\ivoxylabscripts\global.json"
+#param([string[]]$paramlab,[string[]]$paramglobal)
+try {
+    $lab = get-content -raw -path $paramlab |convertfrom-json
+}
+catch {throw "I don't have a valid lab definition"}
+try {
+    $global = get-content -raw -path $paramglobal |convertfrom-json
+}
+catch {throw "I don't have a valid global definition"}
 
+# Global Config Section
+
+$dvswitch = $global.vcenter.dvswitch
+$cluster = $global.vcenter.cluster
+$datastore = $global.vcenter.datastore
+
+
+#Lab Configuration
+$labid = $lab.labid
+$prefix = $lab.prefix
+$students = $lab.students
+$labip = $lab.labip
+$labdefaulthost = $lab.labdefaulthost
+$labstartip = $lab.labstartip
 
 # Connect to required resources
-connect-viserver -server $vcenterip -user $vcenteruser -Password $vcenterpassword
-Connect-NsxServer -server $nsxip -user $nsxuser -Password $nsxpassword
+connect-viserver -server $global.vcenter.ip -user $global.vcenter.user -Password $global.vcenter.password
+Connect-NsxServer -server $global.nsx.ip -user $global.nsx.user -Password $global.nsx.password
+
+
 
 foreach ($student in $students) {
     
