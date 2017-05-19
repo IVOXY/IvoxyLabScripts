@@ -1,1 +1,13 @@
-
+{
+  "labid": "lt001",
+  "prefix": "hovs1",
+  "students": [
+    "aaronc",
+    "aunyac",
+    "christinea",
+    "chrisc"
+  ],
+  "$labip": "192.168.2.1",
+  "$labdefaulthost": "192.168.2.10",
+  "$labstartip": "101"
+}
