@@ -1,0 +1,11 @@
+{
+  "labid": "lt001",
+  "prefix": "0609A",
+  "students": [
+    "nathans",
+    "chrisc"
+  ],
+  "labip": "192.168.2.1",
+  "labdefaulthost": "192.168.2.10",
+  "labstartip": 102
+}

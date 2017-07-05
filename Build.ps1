@@ -1,7 +1,7 @@
 ﻿
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\lab.json"
+$paramlab = "c:\git\ivoxylabscripts\0607A-lt004.json"
 $paramglobal = "c:\git\ivoxylabscripts\global.json"
 #param([string[]]$paramlab,[string[]]$paramglobal)
 try {
@@ -61,8 +61,9 @@ foreach ($student in $students) {
         # This really needs to be fixed. Sleep timers are not the way to do this
         $VMName = "$prefix-$labid-$student-" + $_.name
         new-vm -Name $VMName -VM $_ -ResourcePool (get-resourcepool -location $cluster) -Location "$prefix-$labid" -datastore $datastore -RunAsync:$false
+        #Wait-Task -Task $task
         #start-sleep -Seconds 900
-        start-sleep -seconds 10
+        start-sleep -seconds 60
         get-vm -name $VMName | get-networkadapter | set-networkadapter -networkname (get-vdportgroup "*$LSName*") -confirm:$false -runasync:$false
         start-sleep -seconds 10
         get-vm -name $VMName | Start-VM

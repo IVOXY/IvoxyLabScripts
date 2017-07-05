@@ -1,0 +1,25 @@
+{
+  "labid": "lt001",
+  "prefix": "0610A",
+  "students": [
+    "chrisc",
+    "jeffo",
+    "marquesd",
+    "danielt",
+    "johnw",
+    "teresag",
+    "craigg",
+    "chriss",
+    "danw",
+    "glennw",
+    "johnj",
+    "stevenb",
+    "mattn",
+    "benl",
+    "brookeb",
+    "chrisd"
+  ],
+  "labip": "192.168.2.1",
+  "labdefaulthost": "192.168.2.10",
+  "labstartip": 104
+}

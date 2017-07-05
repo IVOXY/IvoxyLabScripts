@@ -11,15 +11,10 @@ $datastore = "tintri1"
 
 
 #Lab Configuration
-$labid = "lt001"
-$prefix = "hovs1"
-$students = @("chrisc","gregn")
-$labip = "192.168.2.1"
-$labdefaulthost = "192.168.2.10"
-$labstartip = 101
+
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\lab.json"
+$paramlab = "c:\git\ivoxylabscripts\0616A-lt001.json"
 $paramglobal = "c:\git\ivoxylabscripts\global.json"
 #param([string[]]$paramlab,[string[]]$paramglobal)
 try {
