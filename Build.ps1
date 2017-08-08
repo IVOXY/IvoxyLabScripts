@@ -1,7 +1,7 @@
 ﻿
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\0607A-lt004.json"
+$paramlab = "c:\git\ivoxylabscripts\0808A-lt001.json"
 $paramglobal = "c:\git\ivoxylabscripts\global.json"
 #param([string[]]$paramlab,[string[]]$paramglobal)
 try {
@@ -54,7 +54,7 @@ foreach ($student in $students) {
     get-nsxedge -name $Edgename | get-nsxedgerouting | Set-NsxEdgeRouting -defaultgatewayaddress 10.100.5.1 -confirm:$false
     get-nsxedge -name $edgename | get-nsxedgenat | New-NsxEdgeNatRule -Vnic 0 -OriginalAddress "10.100.5.$labstartip" -TranslatedAddress $labdefaulthost -action dnat
     get-nsxedge -name $edgename | get-nsxedgenat | New-NsxEdgeNatRule -Vnic 0 -OriginalAddress "192.168.2.0/24" -TranslatedAddress "10.100.5.$labstartip" -action snat
-
+    get-nsxedge -name $edgename | get-nsxedgerouting | New-NsxEdgeStaticRoute -Network 10.1.0.0/22 -NextHop 192.168.2.254 -confirm:$false
     
     
     foreach ($_ in (get-vm -location "$labid*")) {
@@ -64,7 +64,8 @@ foreach ($student in $students) {
         #Wait-Task -Task $task
         #start-sleep -Seconds 900
         start-sleep -seconds 60
-        get-vm -name $VMName | get-networkadapter | set-networkadapter -networkname (get-vdportgroup "*$LSName*") -confirm:$false -runasync:$false
+        #add select-object -first 2
+        get-vm -name $VMName | get-networkadapter |select-object -first 2| set-networkadapter -networkname (get-vdportgroup "*$LSName*") -confirm:$false -runasync:$false
         start-sleep -seconds 10
         get-vm -name $VMName | Start-VM
 

@@ -14,7 +14,7 @@ $datastore = "tintri1"
 
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\0616A-lt001.json"
+$paramlab = "c:\git\ivoxylabscripts\0807B-lt004.json"
 $paramglobal = "c:\git\ivoxylabscripts\global.json"
 #param([string[]]$paramlab,[string[]]$paramglobal)
 try {
