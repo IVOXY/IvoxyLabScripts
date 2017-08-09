@@ -1,0 +1,15 @@
+{
+  "nsx": {
+    "ip": "nsxmgr.lab.ivoxy.com",
+    "user": "admin",
+    "password": "password"
+  },
+  "vcenter": {
+    "ip": "dc1vc1.lab.ivoxy.com",
+    "user": "svc_labapi@lab.ivoxy.com",
+    "password": "password",
+    "dvswitch": "dSwitch0",
+    "cluster": "lab",
+    "datastore": "tintri2"
+  }
+}
