@@ -1,9 +1,28 @@
-﻿
+﻿<#
+
+.SYNOPSIS
+This script will build an IVOXY lab setup using powercli and powernsx
+
+.DESCRIPTION
+this script accepts 2 parameters. 1) a global configuration jason file containing server locations and login information (see global.json for an example) and 2) a lab json file that contains the lab build notes (see the labexample.json file for an example)
+
+This script will simply clone all of the virtual machines in a "lab ID" directory on the vcenter server and build a new virtual wire and edge gateway.
+
+.EXAMPLE
+.\Remove.ps1 -paramlab .\0808A-lt001.json -paramglobal .\global.json
+
+.NOTES
+N/A
+
+.LINK
+http://github.com/ivoxy
+
+#>
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\0808A-lt001.json"
-$paramglobal = "c:\git\ivoxylabscripts\global.json"
-#param([string[]]$paramlab,[string[]]$paramglobal)
+#$paramlab = "c:\git\ivoxylabscripts\0808A-lt001.json"
+#$paramglobal = "c:\git\ivoxylabscripts\global.json"
+param([string[]]$paramlab,[string[]]$paramglobal)
 try {
     $lab = get-content -raw -path $paramlab |convertfrom-json
 }

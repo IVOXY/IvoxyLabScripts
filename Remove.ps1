@@ -1,22 +1,30 @@
-﻿# Global Config Section
-$nsxip = "nsxmgr.lab.ivoxy.com"
-$nsxuser = "admin"
-$nsxpassword = "Go#Sand!"
-$vcenterip = "dc1vc1.lab.ivoxy.com"
-$vcenteruser = "svc_labapi@lab.ivoxy.com"
-$vcenterpassword = "Simple plate camel1"
-$dvswitch = "dSwitch0"
-$cluster = "lab"
-$datastore = "tintri1"
+﻿<#
 
+.SYNOPSIS
+This script will remove an IVOXY lab setup using powercli and powernsx
 
-#Lab Configuration
+.DESCRIPTION
+this script accepts 2 parameters. 1) a global configuration jason file containing server locations and login information (see global.json for an example) and 2) a lab json file that contains the lab build notes (see the labexample.json file for an example)
+
+This script will simply clone all of the virtual machines in a "lab ID" directory on the vcenter server and build a new virtual wire and edge gateway.
+
+.EXAMPLE
+.\Remove.ps1 -paramlab .\0808A-lt001.json -paramglobal .\global.json
+
+.NOTES
+N/A
+
+.LINK
+http://github.com/ivoxy
+
+#>
+
 
 
 #Temp path definitions
-$paramlab = "c:\git\ivoxylabscripts\0807B-lt004.json"
-$paramglobal = "c:\git\ivoxylabscripts\global.json"
-#param([string[]]$paramlab,[string[]]$paramglobal)
+#$paramlab = "c:\git\ivoxylabscripts\0807B-lt004.json"
+#$paramglobal = "c:\git\ivoxylabscripts\global.json"
+param([string[]]$paramlab,[string[]]$paramglobal)
 try {
     $lab = get-content -raw -path $paramlab |convertfrom-json
 }
