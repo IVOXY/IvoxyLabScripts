@@ -1,7 +1,7 @@
 ﻿<#
 
 .SYNOPSIS
-This script will build an IVOXY lab setup using powercli and powernsx
+This script will build an IVOXY lab setup using powercli and powernsx. Because of the use of sleep timers, VAAI for NFS is needed
 
 .DESCRIPTION
 this script accepts 2 parameters. 1) a global configuration jason file containing server locations and login information (see global.json for an example) and 2) a lab json file that contains the lab build notes (see the labexample.json file for an example)
@@ -37,7 +37,7 @@ catch {throw "I don't have a valid global definition"}
 $dvswitch = $global.vcenter.dvswitch
 $cluster = $global.vcenter.cluster
 $datastore = $global.vcenter.datastore
-
+$outfile = "$lab.labid" + "classroster.txt"
 
 #Lab Configuration
 $labid = $lab.labid
@@ -82,14 +82,15 @@ foreach ($student in $students) {
         new-vm -Name $VMName -VM $_ -ResourcePool (get-resourcepool -location $cluster) -Location "$prefix-$labid" -datastore $datastore -RunAsync:$false
         #Wait-Task -Task $task
         #start-sleep -Seconds 900
-        start-sleep -seconds 60
+        start-sleep -seconds 10
         #add select-object -first 2
         get-vm -name $VMName | get-networkadapter |select-object -first 2| set-networkadapter -networkname (get-vdportgroup "*$LSName*") -confirm:$false -runasync:$false
-        start-sleep -seconds 10
+        start-sleep -seconds 5
         get-vm -name $VMName | Start-VM
 
     }
-
+       
+        "$student - $labstartip" | out-file -append $outfile -Encoding UTF8
         $labstartip = $labstartip + 1
 }
 
