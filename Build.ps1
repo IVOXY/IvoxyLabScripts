@@ -37,7 +37,7 @@ catch {throw "I don't have a valid global definition"}
 $dvswitch = $global.vcenter.dvswitch
 $cluster = $global.vcenter.cluster
 $datastore = $global.vcenter.datastore
-$outfile = "$lab.labid" + "classroster.txt"
+$outfile = "classroster.txt"
 
 #Lab Configuration
 $labid = $lab.labid
@@ -90,7 +90,7 @@ foreach ($student in $students) {
 
     }
        
-        "$student - $labstartip" | out-file -append $outfile -Encoding UTF8
+        "$student - 10.100.5. $labstartip" | out-file -append $outfile -Encoding UTF8
         $labstartip = $labstartip + 1
 }
 
