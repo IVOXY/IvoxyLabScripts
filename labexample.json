@@ -9,5 +9,6 @@
   ],
   "labip": "192.168.2.1",
   "labdefaulthost": "192.168.2.10",
+  "labdefaulthostview": "192.168.2.11",
   "labstartip": 101
 }
